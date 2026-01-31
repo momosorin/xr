@@ -1,18 +1,9 @@
-<!-- Aframeを利用してa-boxを表示させるデモコンテンツを作成したい。
-解説はせずに、コビペで使えるソースコードを用意してください。
-htmlに全てを埋め込む形をとってください -->
-
-
-<!-- 現在のhtmlを使ってar.jsでhiroマーカーを活用したデモコンテンツに変更したい。
-先ほどと同じルールで生成してください。 -->
-
-
 <!doctype html>
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>A-Frame + AR.js (Hiro Marker) Demo</title>
+    <title>A-Frame + AR.js (Hiro Marker) Card Image Demo</title>
 
     <!-- A-Frame -->
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
@@ -38,7 +29,7 @@ htmlに全てを埋め込む形をとってください -->
   </head>
 
   <body>
-    <div class="hint">Hiroマーカーをカメラに映すとボックスが表示されます</div>
+    <div class="hint">Hiroマーカーを映すと card.png が表示されます</div>
 
     <a-scene
       embedded
@@ -46,21 +37,24 @@ htmlに全てを埋め込む形をとってください -->
       renderer="antialias: true; colorManagement: true; precision: mediump;"
       arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;"
     >
-      <a-entity light="type: ambient; intensity: 0.65"></a-entity>
+      <!-- Assets -->
+      <a-assets>
+        <img id="cardTex" src="img/card.png" alt="card" />
+      </a-assets>
+
+      <a-entity light="type: ambient; intensity: 0.75"></a-entity>
       <a-entity light="type: directional; intensity: 0.9" position="1 2 1"></a-entity>
 
       <!-- Hiro marker -->
       <a-marker preset="hiro">
-        <a-box
+        <!-- a-box -> a-plane with image texture -->
+        <a-plane
           position="0 0.5 0"
-          rotation="0 45 0"
-          width="1"
-          height="1"
-          depth="1"
-          color="#4CC3D9"
-          material="roughness: 0.35; metalness: 0.1"
-          animation="property: rotation; to: 0 405 0; loop: true; dur: 6000; easing: linear"
-        ></a-box>
+          rotation="-90 0 0"
+          width="1.0"
+          height="0.6"
+          material="src: #cardTex; transparent: true;"
+        ></a-plane>
 
         <a-plane
           position="0 0 0"
@@ -68,7 +62,7 @@ htmlに全てを埋め込む形をとってください -->
           width="2"
           height="2"
           color="#1b1b1b"
-          material="roughness: 0.95; metalness: 0.0; opacity: 0.6; transparent: true;"
+          material="roughness: 0.95; metalness: 0.0; opacity: 0.35; transparent: true;"
         ></a-plane>
       </a-marker>
 
